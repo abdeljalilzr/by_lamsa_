@@ -1,0 +1,913 @@
+Voici le code complet et final avec toutes les optimisations et la mise à jour du lien WhatsApp :
+
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>By Lamsa - Créations en Agathe Naturel</title>
+    <meta name="description" content="Boutique d'accessoires artisanaux en agathe naturel. Bracelets, colliers et boucles d'oreilles faits main au Maroc.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --light-beige: #F8F4E9;
+            --dark-beige: #E8DFD5;
+            --charcoal: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, var(--light-beige), var(--dark-beige));
+            color: var(--charcoal);
+            line-height: 1.6;
+            padding-top: 90px;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            top: 0;
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .logo img {
+            height: 70px;
+            transition: all 0.3s;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 35px;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-size: 18px;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            position: relative;
+            margin-bottom: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            max-width: 800px;
+            padding: 0 30px;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: clamp(18px, 2.5vw, 22px);
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--gold);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s;
+            border: 2px solid var(--gold);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(36px, 5vw, 42px);
+            margin-bottom: 60px;
+            color: var(--charcoal);
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: var(--gold);
+            margin: 20px auto;
+        }
+
+        /* Products */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--gold);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 2;
+        }
+
+        .product-image-container {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .product-main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        .product-thumbnails {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            z-index: 2;
+        }
+
+        .product-thumbnail {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            border: 2px solid white;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s;
+            object-fit: cover;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        .product-thumbnail:hover,
+        .product-thumbnail.active {
+            opacity: 1;
+            border-color: var(--gold);
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-title {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: var(--charcoal);
+            font-weight: 700;
+        }
+
+        .product-price {
+            font-size: 22px;
+            color: var(--gold);
+            margin-bottom: 18px;
+            font-weight: 700;
+        }
+
+        .product-description {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .order-btn {
+            display: block;
+            text-align: center;
+            background-color: var(--gold);
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .order-btn:hover {
+            background-color: #c19b2e;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background-color: white;
+            padding: 100px 30px;
+        }
+
+        .testimonial-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .testimonial-card {
+            background-color: var(--light-beige);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stars {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 25px;
+            position: relative;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 28px;
+            color: var(--gold);
+            opacity: 0.5;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--charcoal);
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-location {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* About */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: 500px;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        .about-text h2 {
+            font-size: 36px;
+            margin-bottom: 25px;
+            color: var(--charcoal);
+            font-weight: 700;
+        }
+
+        .about-text p {
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Contact */
+        .contact {
+            background-color: var(--light-beige);
+            padding: 100px 30px;
+            text-align: center;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: var(--gold);
+            color: white;
+            border-radius: 50%;
+            font-size: 24px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.1);
+            background-color: var(--charcoal);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--charcoal);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 25px;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 16px;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .copyright {
+            font-size: 15px;
+            color: #aaa;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            overflow: auto;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 5%;
+            animation: zoomIn 0.3s;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        @keyframes zoomIn {
+            from {transform: scale(0.9);}
+            to {transform: scale(1);}
+        }
+
+        .close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: var(--gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                order: -1;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 80px;
+            }
+            
+            .header-container {
+                padding: 0 20px;
+            }
+            
+            .logo img {
+                height: 60px;
+            }
+            
+            nav ul li {
+                margin-left: 20px;
+            }
+            
+            .hero {
+                height: 80vh;
+                margin-bottom: 60px;
+            }
+            
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-thumbnail {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            nav ul li {
+                margin-left: 15px;
+            }
+            
+            nav ul li a {
+                font-size: 16px;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <img src="https://i.ibb.co/cXC1xTcg/logo-by-lamsa-new.png" alt="By Lamsa - Créations en Agathe Naturel" loading="lazy">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#products">Nos Créations</a></li>
+                    <li><a href="#about">Savoir-Faire</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>L'Art de l'Agathe Naturel</h1>
+            <p>Créations exclusives faites main avec des pierres d'agathe 100% naturelles et des fils précieux</p>
+            <a href="#products" class="btn">Découvrir la Collection</a>
+        </div>
+    </section>
+
+    <section id="products" class="section products">
+        <h2 class="section-title">Nos Créations Exclusives</h2>
+        <div class="product-grid">
+            <!-- Produit 1 -->
+            <div class="product-card">
+                <div class="product-badge">Nouveauté</div>
+                <div class="product-image-container">
+                    <img src="https://i.ibb.co/h1JMnjKH/bracelet-roue-rose-1.jpg" 
+                         data-hires="https://i.ibb.co/h1JMnjKH/bracelet-roue-rose-1.jpg"
+                         alt="Bracelet roue et rose en agathe - vue principale"
+                         class="product-main-image"
+                         id="product1-main"
+                         loading="lazy">
+                    <div class="product-thumbnails">
+                        <img src="https://i.ibb.co/h1JMnjKH/bracelet-roue-rose-1.jpg" 
+                             data-hires="https://i.ibb.co/h1JMnjKH/bracelet-roue-rose-1.jpg"
+                             class="product-thumbnail active" 
+                             onclick="changeImage('product1', this, 'https://i.ibb.co/h1JMnjKH/bracelet-roue-rose-1.jpg')"
+                             loading="lazy"
+                             alt="Miniature 1">
+                        <img src="https://i.ibb.co/ksth7FwV/bracelet-roue-rose-2.jpg"
+                             data-hires="https://i.ibb.co/ksth7FwV/bracelet-roue-rose-2.jpg"
+                             class="product-thumbnail"
+                             onclick="changeImage('product1', this, 'https://i.ibb.co/ksth7FwV/bracelet-roue-rose-2.jpg')"
+                             loading="lazy"
+                             alt="Miniature 2">
+                        <img src="https://i.ibb.co/8nLDYDnS/bracelet-roue-rose-3.jpg"
+                             data-hires="https://i.ibb.co/8nLDYDnS/bracelet-roue-rose-3.jpg"
+                             class="product-thumbnail"
+                             onclick="changeImage('product1', this, 'https://i.ibb.co/8nLDYDnS/bracelet-roue-rose-3.jpg')"
+                             loading="lazy"
+                             alt="Miniature 3">
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Bracelet Roue & Rose</h3>
+                    <div class="product-price">18 DHS</div>
+                    <p class="product-description">Bracelet artisanal combinant motifs roue et rose en agathe naturel. Fait main avec fil résistant. Longueur ajustable.</p>
+                    <a href="https://wa.me/212639529234?text=Je%20suis%20intéressé%20par%20le%20Bracelet%20Roue%20%26%20Rose%20à%2018%20DHS" class="order-btn">Commander</a>
+                </div>
+            </div>
+
+            <!-- Produit 2 -->
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="https://i.ibb.co/7d2Q4ZbZ/bracelet-modele2-1.jpg"
+                         data-hires="https://i.ibb.co/7d2Q4ZbZ/bracelet-modele2-1.jpg"
+                         alt="Bracelet élégance en agathe - vue principale"
+                         class="product-main-image"
+                         id="product2-main"
+                         loading="lazy">
+                    <div class="product-thumbnails">
+                        <img src="https://i.ibb.co/7d2Q4ZbZ/bracelet-modele2-1.jpg"
+                             data-hires="https://i.ibb.co/7d2Q4ZbZ/bracelet-modele2-1.jpg"
+                             class="product-thumbnail active"
+                             onclick="changeImage('product2', this, 'https://i.ibb.co/7d2Q4ZbZ/bracelet-modele2-1.jpg')"
+                             loading="lazy"
+                             alt="Miniature 1">
+                        <img src="https://i.ibb.co/QvzhD38D/bracelet-modele2-2.jpg"
+                             data-hires="https://i.ibb.co/QvzhD38D/bracelet-modele2-2.jpg"
+                             class="product-thumbnail"
+                             onclick="changeImage('product2', this, 'https://i.ibb.co/QvzhD38D/bracelet-modele2-2.jpg')"
+                             loading="lazy"
+                             alt="Miniature 2">
+                        <img src="https://i.ibb.co/sptHJ6Ps/bracelet-modele2-3.jpg"
+                             data-hires="https://i.ibb.co/sptHJ6Ps/bracelet-modele2-3.jpg"
+                             class="product-thumbnail"
+                             onclick="changeImage('product2', this, 'https://i.ibb.co/sptHJ6Ps/bracelet-modele2-3.jpg')"
+                             loading="lazy"
+                             alt="Miniature 3">
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Bracelet Élégance</h3>
+                    <div class="product-price">20 DHS</div>
+                    <p class="product-description">Bracelet fin en agathe naturel avec motifs géométriques. Parfait pour un look quotidien raffiné. Taille unique ajustable.</p>
+                    <a href="https://wa.me/212639529234?text=Je%20suis%20intéressé%20par%20le%20Bracelet%20Élégance%20à%2020%20DHS" class="order-btn">Commander</a>
+                </div>
+            </div>
+
+            <!-- Produit 3 -->
+            <div class="product-card">
+                <div class="product-badge">Promotion</div>
+                <div class="product-image-container">
+                    <img src="https://i.ibb.co/gbpCSnr1/pack-multicolor-1.jpg"
+                         data-hires="https://i.ibb.co/gbpCSnr1/pack-multicolor-1.jpg"
+                         alt="Pack de 5 bracelets multicolores - vue principale"
+                         class="product-main-image"
+                         id="product3-main"
+                         loading="lazy">
+                    <div class="product-thumbnails">
+                        <img src="https://i.ibb.co/gbpCSnr1/pack-multicolor-1.jpg"
+                             data-hires="https://i.ibb.co/gbpCSnr1/pack-multicolor-1.jpg"
+                             class="product-thumbnail active"
+                             onclick="changeImage('product3', this, 'https://i.ibb.co/gbpCSnr1/pack-multicolor-1.jpg')"
+                             loading="lazy"
+                             alt="Miniature 1">
+                        <img src="https://i.ibb.co/MD5yrfjc/pack-multicolor-2.jpg"
+                             data-hires="https://i.ibb.co/MD5yrfjc/pack-multicolor-2.jpg"
+                             class="product-thumbnail"
+                             onclick="changeImage('product3', this, 'https://i.ibb.co/MD5yrfjc/pack-multicolor-2.jpg')"
+                             loading="lazy"
+                             alt="Miniature 2">
+                        <img src="https://i.ibb.co/7Jj1PP8Q/pack-multicolor-3.jpg"
+                             data-hires="https://i.ibb.co/7Jj1PP8Q/pack-multicolor-3.jpg"
+                             class="product-thumbnail"
+                             onclick="changeImage('product3', this, 'https://i.ibb.co/7Jj1PP8Q/pack-multicolor-3.jpg')"
+                             loading="lazy"
+                             alt="Miniature 3">
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pack Multicolor (5 pièces)</h3>
+                    <div class="product-price">70 DHS</div>
+                    <p class="product-description">Lot de 5 bracelets en agathe aux couleurs variées. Parfait pour assortir à toutes vos tenues. Économisez 30% par rapport au prix unitaire.</p>
+                    <a href="https://wa.me/212639529234?text=Je%20suis%20intéressé%20par%20le%20Pack%20Multicolor%20à%2070%20DHS" class="order-btn">Commander</a>
+                </div>
+            </div>
+
+            <!-- Produit 4 -->
+            <div class="product-card">
+                <div class="product-badge">Best-seller</div>
+                <div class="product-image-container">
+                    <img src="https://i.ibb.co/RT4gSB7d/pack-complet-1.jpg"
+                         data-hires="https://i.ibb.co/RT4gSB7d/pack-complet-1.jpg"
+                         alt="Pack complet collier, bracelet et boucles - vue principale"
+                         class="product-main-image"
+                         id="product4-main"
+                         loading="lazy">
+                    <div class="product-thumbnails">
+                        <img src="https://i.ibb.co/RT4gSB7d/pack-complet-1.jpg"
+                             data-hires="https://i.ibb.co/RT4gSB7d/pack-complet-1.jpg"
+                             class="product-thumbnail active"
+                             onclick="changeImage('product4', this, 'https://i.ibb.co/RT4gSB7d/pack-complet-1.jpg')"
+                             loading="lazy"
+                             alt="Miniature 1">
+                        <img src="https://i.ibb.co/dJVXLXpS/pack-complet-2.jpg"
+                             data-hires="https://i.ibb.co/dJVXLXpS/pack-complet-2.jpg"
+                             class="product-thumbnail"
+                             onclick="changeImage('product4', this, 'https://i.ibb.co/dJVXLXpS/pack-complet-2.jpg')"
+                             loading="lazy"
+                             alt="Miniature 2">
+                        <img src="https://i.ibb.co/ZR9rbKYh/pack-complet-3.jpg"
+                             data-hires="https://i.ibb.co/ZR9rbKYh/pack-complet-3.jpg"
+                             class="product-thumbnail"
+                             onclick="changeImage('product4', this, 'https://i.ibb.co/ZR9rbKYh/pack-complet-3.jpg')"
+                             loading="lazy"
+                             alt="Miniature 3">
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pack Complet</h3>
+                    <div class="product-price">35 DHS</div>
+                    <p class="product-description">Ensemble complet comprenant boucles d'oreilles, bracelet et collier en agathe assortis. Idéal pour offrir ou pour compléter votre collection.</p>
+                    <a href="https://wa.me/212639529234?text=Je%20suis%20intéressé%20par%20le%20Pack%20Complet%20à%2035%20DHS" class="order-btn">Commander</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="testimonial-container">
+            <h2 class="section-title">Témoignages Clients</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Les bracelets sont encore plus beaux en vrai ! La qualité est exceptionnelle pour le prix. Livraison rapide et emballage soigné.</p>
+                    <div class="testimonial-author">Fatima E.</div>
+                    <div class="testimonial-location">Casablanca</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="testimonial-text">J'ai offert le pack complet à ma sœur qui l'a adoré. Le rapport qualité-prix est imbattable. Service client très réactif sur WhatsApp.</p>
+                    <div class="testimonial-author">Mehdi K.</div>
+                    <div class="testimonial-location">Marrakech</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Commandé le pack multicolor pour mes filles. Elles les portent tous les jours ! Très résistants malgré un prix très abordable.</p>
+                    <div class="testimonial-author">Amina T.</div>
+                    <div class="testimonial-location">Rabat</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section about">
+        <h2 class="section-title">Notre Savoir-Faire Artisanal</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h2>L'Art de l'Agathe</h2>
+                <p>Depuis notre atelier marocain, nous créons des pièces uniques en agathe 100% naturel. Chaque pierre est sélectionnée pour ses veines naturelles et ses couleurs vibrantes.</p>
+                <p>Nos techniques de fabrication traditionnelles alliées à des designs contemporains garantissent des créations à la fois authentiques et modernes. Tous nos produits sont faits main avec des matériaux nobles.</p>
+                <p>Nous proposons des prix accessibles sans compromis sur la qualité, rendant le luxe artisanal abordable pour tous. Chaque pièce est unique et porte en elle l'énergie de la pierre naturelle.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1589128777073-263566ae5e4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                     alt="Atelier de création By Lamsa"
+                     loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <h2 class="section-title">Contact & Commandes</h2>
+            <p>Pour toute question ou commande spéciale, contactez-nous directement via WhatsApp ou nos réseaux sociaux. Nous répondons sous 24 heures maximum.</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/by_lamsa_?igsh=MWpob3VnbmxtNXhrNQ==" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/faitsamains00" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/212639529234" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">BY LAMSA</div>
+        <div class="footer-links">
+            <a href="#products">Collections</a>
+            <a href="#about">Notre Histoire</a>
+            <a href="#contact">Contact</a>
+            <a href="#">Mentions Légales</a>
+        </div>
+        <div class="copyright">&copy; 2023 By Lamsa. Artisanat Marocain.</div>
+    </footer>
+
+    <!-- Modal Gallery -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage" alt="Vue agrandie du produit">
+    </div>
+
+    <script>
+        // Chargement différé des images HD
+        function loadHighResImages() {
+            const images = document.querySelectorAll('[data-hires]');
+            
+            images.forEach(img => {
+                const hiResUrl = img.getAttribute('data-hires');
+                const tempImg = new Image();
+                
+                tempImg.src = hiResUrl;
+                tempImg.onload = () => {
+                    img.src = hiResUrl;
+                    img.style.opacity = 1;
+                    img.removeAttribute('data-hires');
+                };
+            });
+        }
+
+        // Changement d'image dans la galerie produit
+        function changeImage(productId, element, newSrc) {
+            const mainImg = document.getElementById(productId + '-main');
+            mainImg.style.opacity = 0;
+            
+            setTimeout(() => {
+                mainImg.src = newSrc;
+                mainImg.style.opacity = 1;
+                
+                // Mise à jour des miniatures actives
+                const thumbnails = element.parentElement.querySelectorAll('.product-thumbnail');
+                thumbnails.forEach(thumb => thumb.classList.remove('active'));
+                element.classList.add('active');
+            }, 200);
+        }
+
+        // Gestion de la modal
+        function openModal(imgElement) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            
+            modal.style.display = "block";
+            modalImg.src = imgElement.src;
